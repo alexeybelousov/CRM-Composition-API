@@ -1,18 +1,51 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <div class="page-title">
+      <h3>Счет</h3>
+
+      <button class="btn waves-effect waves-light btn-small">
+        <i class="material-icons">refresh</i>
+      </button>
+    </div>
+
+    <Loader v-if="loading" />
+
+    <div
+      v-else
+      class="row"
+    >
+      <HomeBill
+        :rates="currency.rates"
+      />
+
+      <HomeCurrency />
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import { ref, onMounted } from '@vue/composition-api';
+import HomeBill from '@/components/HomeBill.vue';
+import HomeCurrency from '@/components/HomeCurrency.vue';
 
 export default {
-  name: "Home",
   components: {
-    HelloWorld
-  }
+    HomeBill,
+    HomeCurrency,
+  },
+  setup(props, ctx) {
+    const loading = ref(true);
+    const currency = ref([]);
+
+    onMounted(async () => {
+      currency.value = await ctx.root.$store.dispatch('fetchCurrency');
+      loading.value = false;
+    });
+
+    return {
+      loading,
+      currency,
+    };
+  },
 };
 </script>

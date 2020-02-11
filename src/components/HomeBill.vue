@@ -1,0 +1,40 @@
+<template>
+  <div class="col s12 m6 l4">
+    <div class="card light-blue bill-card">
+      <div class="card-content white-text">
+        <span class="card-title">Счет в валюте</span>
+
+        <p
+          v-for="currency of currencies"
+          :key="currency"
+          class="currency-line"
+        >
+          <span>{{ getCurrency(currency) }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { computed } from '@vue/composition-api';
+
+export default {
+  props: {
+    rates: Object,
+  },
+  setup(props, ctx) {
+    const currencies = ['RUB', 'USD'];
+    // eslint-disable-next-line max-len
+    console.log(ctx.root.$store.getters.info.bill, props.rates.RUB);
+    const base = computed(() => ctx.root.$store.getters.info.bill / props.rates.RUB);
+    const getCurrency = (currency) => Math.floor(base.value * props.rates[currency]);
+
+    return {
+      currencies,
+      base,
+      getCurrency,
+    };
+  },
+};
+</script>
