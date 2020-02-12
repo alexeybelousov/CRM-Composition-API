@@ -24,10 +24,9 @@ export default {
     rates: Object,
   },
   setup(props, ctx) {
-    const currencies = ['RUB', 'USD'];
+    const currencies = ['RUB', 'USD', 'EUR'];
     // eslint-disable-next-line max-len
-    console.log(ctx.root.$store.getters.info.bill, props.rates.RUB);
-    const base = computed(() => ctx.root.$store.getters.info.bill / props.rates.RUB);
+    const base = computed(() => ctx.root.$store.getters.info.bill / props.rates.RUB / props.rates.EUR);
     const getCurrency = (currency) => Math.floor(base.value * props.rates[currency]);
 
     return {

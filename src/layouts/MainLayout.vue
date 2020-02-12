@@ -1,39 +1,46 @@
 <template>
-  <div class="app-main-layout">
-    <Navbar
-      @toggle-sidebar="onToggleSidebar"
-    />
+  <div>
+    <Loader v-if="loading" />
 
-    <Sidebar
-      :is-sidebar-open="isSidebarOpen"
-    />
-
-    <main
-      class="app-content"
-      :class="{
-        'full': !isSidebarOpen,
-      }"
+    <div
+      v-else
+      class="app-main-layout"
     >
-      <div class="app-page">
-        <router-view />
-      </div>
-    </main>
+      <Navbar
+        @toggle-sidebar="onToggleSidebar"
+      />
 
-    <div class="fixed-action-btn">
-      <router-link
-        tag="a"
-        class="btn-floating btn-large blue"
-        to="/record"
+      <Sidebar
+        :is-sidebar-open="isSidebarOpen"
+      />
+
+      <main
+        class="app-content"
+        :class="{
+          'full': !isSidebarOpen,
+        }"
       >
-          <i class="large material-icons">add</i>
-      </router-link >
+        <div class="app-page">
+          <router-view />
+        </div>
+      </main>
+
+      <div class="fixed-action-btn">
+        <router-link
+          tag="a"
+          class="btn-floating btn-large blue"
+          to="/record"
+        >
+            <i class="large material-icons">add</i>
+        </router-link >
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
-import { ref, onMounted } from '@vue/composition-api';
+import { ref, onMounted, computed } from '@vue/composition-api';
 import Navbar from '@/components/app/Navbar.vue';
 import Sidebar from '@/components/app/Sidebar.vue';
 
@@ -43,7 +50,7 @@ export default {
     Sidebar,
   },
   setup(props, ctx) {
-    const isSidebarOpen = ref(true);
+    const isSidebarOpen = ref(false);
     const onToggleSidebar = () => {
       isSidebarOpen.value = !isSidebarOpen.value;
     };
@@ -54,9 +61,12 @@ export default {
       }
     });
 
+    const loading = computed(() => (!ctx.root.$store.getters.info.bill));
+
     return {
       isSidebarOpen,
       onToggleSidebar,
+      loading,
     };
   },
 };
