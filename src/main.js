@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueCompositionAPI from '@vue/composition-api';
 import dateFilter from '@/filters/date.filter';
+import currencyFilter from '@/filters/currency.filter';
 import { VuelidatePlugin } from '@vuelidate/core';
 import messagePlugin from '@/utils/message.plugin';
 import Loader from '@/components/app/Loader.vue';
@@ -28,6 +29,7 @@ firebase.initializeApp({
 
 Vue.config.productionTip = false;
 Vue.filter('date', dateFilter);
+Vue.filter('currency', currencyFilter);
 Vue.use(VueCompositionAPI);
 Vue.use(VuelidatePlugin);
 Vue.use(messagePlugin);

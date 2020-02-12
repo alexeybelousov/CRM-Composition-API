@@ -40,7 +40,7 @@
 
 <script>
 import _ from 'lodash';
-import { ref, onMounted, computed } from '@vue/composition-api';
+import { ref, onMounted } from '@vue/composition-api';
 import Navbar from '@/components/app/Navbar.vue';
 import Sidebar from '@/components/app/Sidebar.vue';
 
@@ -50,6 +50,7 @@ export default {
     Sidebar,
   },
   setup(props, ctx) {
+    const loading = ref(true);
     const isSidebarOpen = ref(false);
     const onToggleSidebar = () => {
       isSidebarOpen.value = !isSidebarOpen.value;
@@ -59,9 +60,11 @@ export default {
       if (!_.get(ctx, 'ctx.root.$store.getters.info.name', null)) {
         await ctx.root.$store.dispatch('fetchUserInfo');
       }
+
+      loading.value = false;
     });
 
-    const loading = computed(() => (!ctx.root.$store.getters.info.bill));
+    // const loading = computed(() => (!ctx.root.$store.getters.info.bill));
 
     return {
       isSidebarOpen,

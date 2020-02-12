@@ -3,7 +3,10 @@
     <div class="page-title">
       <h3>Счет</h3>
 
-      <button class="btn waves-effect waves-light btn-small">
+      <button
+        class="btn waves-effect waves-light btn-small"
+        @click="refresh"
+      >
         <i class="material-icons">refresh</i>
       </button>
     </div>
@@ -18,7 +21,10 @@
         :rates="currency.rates"
       />
 
-      <HomeCurrency />
+      <HomeCurrency
+        :rates="currency.rates"
+        :date="currency.date"
+      />
     </div>
   </div>
 </template>
@@ -42,9 +48,16 @@ export default {
       loading.value = false;
     });
 
+    const refresh = async () => {
+      loading.value = true;
+      currency.value = await ctx.root.$store.dispatch('fetchCurrency');
+      loading.value = false;
+    };
+
     return {
       loading,
       currency,
+      refresh,
     };
   },
 };

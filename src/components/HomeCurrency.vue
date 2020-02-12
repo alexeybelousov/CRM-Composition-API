@@ -15,10 +15,13 @@
           </thead>
 
           <tbody>
-          <tr>
-            <td>руб</td>
-            <td>12121</td>
-            <td>12.12.12</td>
+          <tr
+            v-for="currency in currencies"
+            :key="currency"
+          >
+            <td>{{ currency }}</td>
+            <td>{{ rates[currency].toFixed(2) }}</td>
+            <td>{{ Date.parse(date) | date('date') }}</td>
           </tr>
           </tbody>
         </table>
@@ -26,3 +29,26 @@
     </div>
   </div>
 </template>
+
+<script>
+import { computed } from '@vue/composition-api';
+
+export default {
+  props: {
+    rates: Object,
+    date: String,
+  },
+  setup(props, ctx) {
+    const currencies = ['RUB', 'USD', 'EUR'];
+    // eslint-disable-next-line max-len
+    const base = computed(() => ctx.root.$store.getters.info.bill / props.rates.RUB / props.rates.EUR);
+    const getCurrency = (currency) => Math.floor(base.value * props.rates[currency]);
+
+    return {
+      currencies,
+      base,
+      getCurrency,
+    };
+  },
+};
+</script>
