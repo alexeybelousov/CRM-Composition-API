@@ -12,7 +12,10 @@ export default {
 
         commit('setUserInfo', info);
       // eslint-disable-next-line no-empty
-      } catch (e) {}
+      } catch (e) {
+        commit('setError', e);
+        throw e;
+      }
     },
   },
   mutations: {

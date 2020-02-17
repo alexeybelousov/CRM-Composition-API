@@ -64,8 +64,6 @@ export default {
       loading.value = false;
     });
 
-    // const loading = computed(() => (!ctx.root.$store.getters.info.bill));
-
     return {
       isSidebarOpen,
       onToggleSidebar,
