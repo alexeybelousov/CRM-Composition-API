@@ -13,7 +13,6 @@ export default {
     const error = computed(() => ctx.root.$store.getters.error);
 
     watch(error, (fbError) => {
-      // console.log(fbError);
       if (fbError) {
         ctx.root.$error(messages[fbError.code] || 'Something wrong');
       }

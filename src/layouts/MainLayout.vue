@@ -41,9 +41,12 @@
 
 <script>
 import _ from 'lodash';
-import { ref, onMounted } from '@vue/composition-api';
+import {
+  ref, onMounted, computed, watch,
+} from '@vue/composition-api';
 import Navbar from '@/components/app/Navbar.vue';
 import Sidebar from '@/components/app/Sidebar.vue';
+import messages from '@/utils/messages';
 
 export default {
   components: {
@@ -65,10 +68,19 @@ export default {
       loading.value = false;
     });
 
+    const error = computed(() => ctx.root.$store.getters.error);
+
+    watch(error, (fbError) => {
+      if (fbError) {
+        ctx.root.$error(messages[fbError.code] || 'Something wrong');
+      }
+    });
+
     return {
       isSidebarOpen,
       onToggleSidebar,
       loading,
+      error,
     };
   },
 };

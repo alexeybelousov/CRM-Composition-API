@@ -80,8 +80,9 @@ export default {
     });
 
     const logout = async () => {
-      await ctx.root.$store.dispatch('logout');
       ctx.root.$router.push('/login?message=logout');
+
+      await ctx.root.$store.dispatch('logout');
     };
 
     return {
