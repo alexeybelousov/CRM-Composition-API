@@ -50,7 +50,6 @@
 </template>
 
 <script>
-
 import {
   ref, computed, onMounted,
 } from '@vue/composition-api';

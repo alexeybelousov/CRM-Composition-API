@@ -8,36 +8,66 @@
       <canvas></canvas>
     </div>
 
-    <section>
-      <table>
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>Сумма</th>
-          <th>Дата</th>
-          <th>Категория</th>
-          <th>Тип</th>
-          <th>Открыть</th>
-        </tr>
-        </thead>
+    <Loader
+      v-if="loading"
+    />
 
-        <tbody>
-        <tr>
-          <td>1</td>
-          <td>1212</td>
-          <td>12.12.32</td>
-          <td>name</td>
-          <td>
-            <span class="white-text badge red">Расход</span>
-          </td>
-          <td>
-            <button class="btn-small btn">
-              <i class="material-icons">open_in_new</i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+    <p
+      v-else-if="!filteredRecords.length"
+      class="center"
+    >
+      {{ `Records does not exist. ` }}
+      <router-link
+        to="/record"
+      >
+        Add new
+      </router-link>
+    </p>
+
+    <section
+      v-else
+    >
+      <HistoryTable
+        :records="filteredRecords"
+      />
     </section>
   </div>
 </template>
+
+<script>
+import {
+  ref, computed, onMounted,
+} from '@vue/composition-api';
+import HistoryTable from '@/components/HistoryTable.vue';
+
+export default {
+  components: {
+    HistoryTable,
+  },
+  setup(props, ctx) {
+    const loading = ref(true);
+    const records = computed(() => ctx.root.$store.getters.records);
+    const categories = computed(() => ctx.root.$store.getters.categories);
+    const filteredRecords = ref([]);
+
+    onMounted(async () => {
+      await ctx.root.$store.dispatch('fetchRecords');
+      await ctx.root.$store.dispatch('fetchCategories');
+
+      loading.value = false;
+
+      filteredRecords.value = records.value.map((record) => ({
+        ...record,
+        categoryName: categories.value.find((cat) => cat.id === record.categoryId).title,
+        typeClass: record.type === 'income' ? 'green' : 'red',
+        typeText: record.type === 'income' ? ' Income' : 'Outcome',
+      }));
+    });
+
+    return {
+      loading,
+      filteredRecords,
+    };
+  },
+};
+</script>
