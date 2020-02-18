@@ -58,9 +58,6 @@ export default {
         return cat;
       });
     },
-    clearCategories(state) {
-      state.categories = null;
-    },
   },
   getters: {
     categories: (s) => s.categories,
