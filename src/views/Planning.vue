@@ -32,13 +32,16 @@
           <strong>{{ cat.title }}:</strong>
           {{ cat.spend | currency }} из {{ cat.limit | currency }}
         </p>
-        <div class="progress" >
+        <div
+          class="progress"
+          v-tooltip="cat.tooltip"
+        >
           <div
-              class="determinate"
-              :class="[cat.progressColor]"
-              :style="{
-                width: `${cat.progressPercent}%`
-              }"
+            class="determinate"
+            :class="[cat.progressColor]"
+            :style="{
+              width: `${cat.progressPercent}%`
+            }"
           ></div>
         </div>
       </div>
@@ -51,6 +54,7 @@
 import {
   ref, computed, onMounted,
 } from '@vue/composition-api';
+import currencyFilter from '@/filters/currency.filter';
 
 export default {
 
@@ -84,11 +88,15 @@ export default {
             ? 'yellow'
             : 'red';
 
+        const tooltipValue = cat.limit - spend;
+        const tooltip = `${tooltipValue < 0 ? 'Previshenie na' : 'Ostalos'} ${currencyFilter(Math.abs(tooltipValue))}`;
+
         return {
           ...cat,
           progressPercent,
           progressColor,
           spend,
+          tooltip,
         };
       });
     });
