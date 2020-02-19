@@ -51,7 +51,7 @@ const routes = [
     path: '/detail/:id',
     name: 'detail',
     meta: { layout: 'main', auth: true },
-    component: () => import('../views/Details.vue'),
+    component: () => import('../views/Detail.vue'),
   },
   {
     path: '/profile',

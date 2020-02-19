@@ -43,7 +43,6 @@
 </template>
 
 <script>
-// import { computed } from '@vue/composition-api';
 
 export default {
   props: {
@@ -52,18 +51,5 @@ export default {
       require: true,
     },
   },
-  // setup(props, ctx) {
-  //   const currencies = ['RUB', 'USD', 'EUR'];
-  //   // eslint-disable-next-line max-len
-  //   const base = computed(() => ctx.root.$store.getters.info.bill /
-  // props.rates.RUB / props.rates.EUR);
-  //   const getCurrency = (currency) => Math.floor(base.value * props.rates[currency]);
-
-  //   return {
-  //     currencies,
-  //     base,
-  //     getCurrency,
-  //   };
-  // },
 };
 </script>
