@@ -6,6 +6,8 @@ import { VuelidatePlugin } from '@vuelidate/core';
 import messagePlugin from '@/utils/message.plugin';
 import tooltipDirective from '@/directives/tooltip.directive';
 import Loader from '@/components/app/Loader.vue';
+import Paginate from 'vuejs-paginate';
+
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -36,6 +38,7 @@ Vue.use(VuelidatePlugin);
 Vue.use(messagePlugin);
 Vue.directive('tooltip', tooltipDirective);
 Vue.component('Loader', Loader);
+Vue.component('Paginate', Paginate);
 
 let app;
 

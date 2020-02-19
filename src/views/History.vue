@@ -28,7 +28,17 @@
       v-else
     >
       <HistoryTable
-        :records="filteredRecords"
+        :records="items"
+      />
+
+      <Paginate
+        v-model="page"
+        :page-count="pageCount"
+        :click-handler="pageChange"
+        :prev-text="'<'"
+        :next-text="'>'"
+        :container-class="'pagination'"
+        :page-class="'waves-effect'"
       />
     </section>
   </div>
@@ -39,12 +49,17 @@ import {
   ref, computed, onMounted,
 } from '@vue/composition-api';
 import HistoryTable from '@/components/HistoryTable.vue';
+import usePagination from '@/compositions/usePagination';
 
 export default {
   components: {
     HistoryTable,
   },
   setup(props, ctx) {
+    const {
+      initPagination, page, items, pageCount, pageChange,
+    } = usePagination(ctx);
+
     const loading = ref(true);
     const records = computed(() => ctx.root.$store.getters.records);
     const categories = computed(() => ctx.root.$store.getters.categories);
@@ -62,11 +77,17 @@ export default {
         typeClass: record.type === 'income' ? 'green' : 'red',
         typeText: record.type === 'income' ? ' Income' : 'Outcome',
       }));
+
+      initPagination(filteredRecords.value);
     });
 
     return {
       loading,
       filteredRecords,
+      page,
+      items,
+      pageCount,
+      pageChange,
     };
   },
 };
