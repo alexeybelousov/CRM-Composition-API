@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { ref } from '@vue/composition-api';
 
 export default function usePagination(ctx) {
-  const pageSize = 2;
+  const pageSize = 5;
   let allItems = [];
 
   const pageFromQuery = +ctx.root.$route.query.page || 1;
