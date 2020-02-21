@@ -10,7 +10,8 @@
     >
       <Chart
         :chart-data="chartData"
-        :options="{ height: 200, width: 200 }"
+        :width="300"
+        :height="300"
       />
     </div>
 

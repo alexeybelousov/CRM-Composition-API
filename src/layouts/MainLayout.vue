@@ -11,6 +11,7 @@
       />
 
       <Sidebar
+        :key="locale"
         :is-sidebar-open="isSidebarOpen"
       />
 
@@ -76,11 +77,14 @@ export default {
       }
     });
 
+    const locale = computed(() => ctx.root.$store.getters.info.locale);
+
     return {
       isSidebarOpen,
       onToggleSidebar,
       loading,
       error,
+      locale,
     };
   },
 };

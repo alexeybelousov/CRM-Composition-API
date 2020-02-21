@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import localizeFilter from '@/filters/localize.filter';
+
 export default {
   props: {
     isSidebarOpen: Boolean,
@@ -28,24 +30,24 @@ export default {
   setup() {
     const links = [
       {
-        title: 'Счет',
+        title: localizeFilter('sidebar-bill'),
         url: '/',
         exact: true,
       },
       {
-        title: 'История',
+        title: localizeFilter('sidebar-history'),
         url: '/history',
       },
       {
-        title: 'Планирование',
+        title: localizeFilter('sidebar-planning'),
         url: '/planning',
       },
       {
-        title: 'Новая запись',
+        title: localizeFilter('sidebar-new-record'),
         url: '/record',
       },
       {
-        title: 'Категории',
+        title: localizeFilter('sidebar-categories'),
         url: '/categories',
       },
     ];

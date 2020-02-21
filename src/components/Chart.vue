@@ -10,11 +10,15 @@ export default {
     },
     options: {
       type: Object,
-      required: true,
+      default: () => {},
     },
   },
   mounted() {
-    this.renderChart(this.chartData, this.options);
+    this.renderChart(this.chartData, {
+      maintainAspectRatio: false,
+      height: 200,
+      ...this.options,
+    });
   },
 };
 </script>
