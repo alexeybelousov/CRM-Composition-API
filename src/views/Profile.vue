@@ -54,6 +54,11 @@ import useVuelidate from '@vuelidate/core';
 import { required } from 'vuelidate/lib/validators';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.$title('profile-title'),
+    };
+  },
   setup(props, ctx) {
     const info = computed(() => ctx.root.$store.getters.info);
     const nameField = ref('');
