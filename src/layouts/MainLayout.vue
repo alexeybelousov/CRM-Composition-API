@@ -56,7 +56,7 @@ export default {
   },
   setup(props, ctx) {
     const loading = ref(true);
-    const isSidebarOpen = ref(false);
+    const isSidebarOpen = ref(true);
     const onToggleSidebar = () => {
       isSidebarOpen.value = !isSidebarOpen.value;
     };

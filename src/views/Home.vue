@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Счет</h3>
+      <h3>{{ 'bill-title' | localize }}</h3>
 
       <button
         class="btn waves-effect waves-light btn-small"
@@ -35,6 +35,11 @@ import HomeBill from '@/components/HomeBill.vue';
 import HomeCurrency from '@/components/HomeCurrency.vue';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.$title('bill-title'),
+    };
+  },
   components: {
     HomeBill,
     HomeCurrency,

@@ -4,7 +4,7 @@
     @submit.prevent="submit"
   >
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">{{ 'login-title' | localize }}</span>
 
       <div class="input-field">
         <input
@@ -17,13 +17,13 @@
             v-model.trim="emailField"
         >
 
-        <label for="email">Email</label>
+        <label for="email">{{ 'email' | localize }}</label>
 
         <small
           v-if="isEmailInvalid"
           class="helper-text invalid"
         >
-          Email incorrect
+          {{ 'email-incorrect' | localize }}
         </small>
       </div>
 
@@ -38,13 +38,13 @@
             v-model.trim="passwordField"
         >
 
-        <label for="password">Пароль</label>
+        <label for="password">{{ 'password' | localize }}</label>
 
         <small
           v-if="isPasswordInvalid"
           class="helper-text invalid"
         >
-          Password incorrect
+          {{ 'password-incorrect' | localize }}
         </small>
       </div>
     </div>
@@ -55,18 +55,18 @@
             class="btn waves-effect waves-light auth-submit"
             type="submit"
         >
-          Войти
+          {{ 'login' | localize }}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Нет аккаунта?
+        {{ 'login-no-account' | localize }}
         <router-link
           tag="a"
           to="/register"
         >
-          Зарегистрироваться
+          {{ 'register' | localize }}
         </router-link>
       </p>
     </div>
@@ -80,6 +80,11 @@ import { email, required, minLength } from 'vuelidate/lib/validators';
 import messages from '@/utils/messages';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.$title('login-title'),
+    };
+  },
   setup(props, ctx) {
     const emailField = ref('');
     const passwordField = ref('');

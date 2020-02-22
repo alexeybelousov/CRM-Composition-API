@@ -2,7 +2,7 @@
   <div class="col s12 m6">
     <div>
       <div class="page-subtitle">
-        <h4>Создать</h4>
+        <h4>{{ 'create' | localize }}</h4>
       </div>
 
       <form
@@ -18,13 +18,13 @@
               v-model="titleField"
           >
 
-          <label for="name">Название</label>
+          <label for="name">{{ 'name' | localize }}</label>
 
           <span
             v-if="isTitleInvalid"
             class="helper-text invalid"
           >
-            Введите название
+            {{ 'categories-input-name' | localize }}
           </span>
         </div>
 
@@ -38,18 +38,18 @@
               v-model.number="limitField"
           >
 
-          <label for="limit">Лимит</label>
+          <label for="limit">{{ 'categories-limit' | localize }}</label>
 
           <span
             v-if="isLimitInvalid"
             class="helper-text invalid"
           >
-            Минимальная величина
+            {{ 'categories-min-value' | localize }}
           </span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
-          Создать
+          {{ 'create' | localize }}
           <i class="material-icons right">send</i>
         </button>
       </form>

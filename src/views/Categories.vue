@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Категории</h3>
+      <h3>{{ 'categories-title' | localize }}</h3>
     </div>
     <section>
       <Loader
@@ -20,7 +20,7 @@
         />
 
         <p class="center" v-else>
-          Category not found
+          {{ 'categories-not-found' | localize }}
         </p>
       </div>
     </section>
@@ -35,6 +35,11 @@ import CategoryCreate from '@/components/CategoryCreate.vue';
 import CategoryEdit from '@/components/CategoryEdit.vue';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.$title('categories-title'),
+    };
+  },
   components: {
     CategoryCreate,
     CategoryEdit,

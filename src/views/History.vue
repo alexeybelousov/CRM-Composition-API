@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>История записей</h3>
+      <h3>{{ 'history-title' | localize }}</h3>
     </div>
 
     <div
@@ -23,11 +23,11 @@
       v-else-if="!filteredRecords.length"
       class="center"
     >
-      {{ `Records does not exist. ` }}
+      {{ 'history-record-not-exist' | localize }}
       <router-link
         to="/record"
       >
-        Add new
+        {{ 'add-new' | localize }}
       </router-link>
     </p>
 
@@ -60,6 +60,11 @@ import Chart from '@/components/Chart.vue';
 import usePagination from '@/compositions/usePagination';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.$title('history-title'),
+    };
+  },
   components: {
     Chart,
     HistoryTable,

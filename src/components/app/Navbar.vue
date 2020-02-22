@@ -29,7 +29,8 @@
                   tag="a"
                   to="/profile"
                   class="black-text">
-                  <i class="material-icons">account_circle</i>Профиль
+                  <i class="material-icons">account_circle</i>
+                    {{ 'profile-title' | localize }}
                 </router-link>
               </li>
               <li class="divider" tabindex="-1"></li>
@@ -39,7 +40,8 @@
                   class="black-text"
                   @click.prevent="logout"
                 >
-                  <i class="material-icons">assignment_return</i>Выйти
+                  <i class="material-icons">assignment_return</i>
+                    {{ 'logout' | localize }}
                 </a>
               </li>
             </ul>

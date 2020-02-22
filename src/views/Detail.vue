@@ -10,7 +10,7 @@
           to="/history"
           class="breadcrumb"
         >
-          История
+          {{ 'detail-title' | localize }}
         </router-link>
 
         <a
@@ -28,9 +28,9 @@
             :class="[record.typeClass]"
           >
             <div class="card-content white-text">
-              <p>Описание: {{ record.desc }}</p>
-              <p>Сумма: {{ record.amount | currency('RUB') }}</p>
-              <p>Категория: {{ record.categoryName }}</p>
+              <p>{{ 'detail-desc' | localize }}: {{ record.desc }}</p>
+              <p>{{ 'detail-amount' | localize }}: {{ record.amount | currency('RUB') }}</p>
+              <p>{{ 'detail-category' | localize }}: {{ record.categoryName }}</p>
 
               <small>{{ Date.parse(record.date) | date('datetime') }}</small>
             </div>
@@ -43,7 +43,7 @@
       v-else
       class="center"
     >
-      Record with id={{ $route.params.id }} not found
+      {{ 'detail-with-id' | localize }} {{ $route.params.id }} {{ 'detail-not-found' | localize }}
     </p>
   </div>
 </template>
@@ -54,6 +54,11 @@ import {
 } from '@vue/composition-api';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.$title('detail-title'),
+    };
+  },
   setup(props, ctx) {
     const loading = ref(true);
     const record = ref(null);

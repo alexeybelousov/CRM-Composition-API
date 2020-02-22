@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Новая запись</h3>
+      <h3>{{ 'record-title' | localize }}</h3>
     </div>
 
     <Loader
@@ -16,7 +16,7 @@
       <router-link
         to="/categories"
       >
-        Add new
+        {{ 'add-new' | localize }}
       </router-link>
     </p>
 
@@ -37,7 +37,7 @@
               {{ cat.title }}
             </option>
           </select>
-        <label>Выберите категорию</label>
+        <label>{{ 'select-category' | localize }}</label>
       </div>
 
       <p>
@@ -49,7 +49,7 @@
               value="income"
               v-model="type"
           />
-          <span>Доход</span>
+          <span>{{ 'record-income' | localize }}</span>
         </label>
       </p>
 
@@ -62,7 +62,7 @@
               value="outcome"
               v-model="type"
           />
-          <span>Расход</span>
+          <span>{{ 'record-outcome' | localize }}</span>
         </label>
       </p>
 
@@ -76,13 +76,13 @@
           v-model.number="amountField"
         >
 
-        <label for="amount">Сумма</label>
+        <label for="amount">{{ 'record-amount' | localize }}</label>
 
         <span
           v-if="isAmountInvalid"
           class="helper-text invalid"
         >
-          amount incorrect
+          {{ 'record-amount-incorrect' | localize }}
         </span>
       </div>
 
@@ -96,18 +96,18 @@
           v-model="descField"
         >
 
-        <label for="description">Описание</label>
+        <label for="description">{{ 'record-desc' | localize }}</label>
 
         <span
           v-if="isDescInvalid"
           class="helper-text invalid"
         >
-          description incorrect
+          {{ 'record-desc-incorrect' | localize }}
         </span>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Создать
+        {{ 'create' | localize }}
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -122,6 +122,11 @@ import useVuelidate from '@vuelidate/core';
 import { required, minValue } from 'vuelidate/lib/validators';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.$title('record-title'),
+    };
+  },
   setup(props, ctx) {
     const loading = ref(true);
     let select = null;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Планирование</h3>
+      <h3>{{ 'planning-title' | localize }}</h3>
       <h4>{{ bill | currency('RUB')}}</h4>
     </div>
 
@@ -13,11 +13,11 @@
       v-else-if="!categories.length"
       class="center"
     >
-      {{ `Categories does not exist. ` }}
+      {{ 'planning-categories-not-exist' | localize }}
       <router-link
         to="/categories"
       >
-        Add new
+        {{ 'add-new' | localize }}
       </router-link>
     </p>
 
@@ -56,7 +56,11 @@ import {
 import currencyFilter from '@/filters/currency.filter';
 
 export default {
-
+  metaInfo() {
+    return {
+      title: this.$title('planning-title'),
+    };
+  },
   setup(props, ctx) {
     const loading = ref(true);
     const records = computed(() => ctx.root.$store.getters.records);
